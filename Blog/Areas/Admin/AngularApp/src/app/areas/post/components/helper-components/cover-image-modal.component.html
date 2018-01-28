@@ -1,0 +1,123 @@
+<style>
+  .modal-header {
+    padding: 10px;
+  }
+
+  .modal-footer {
+    padding: 10px;
+  }
+
+  .cover {
+  }
+
+    .cover > div {
+      padding: 5px;
+    }
+
+  .cover-item {
+    padding: 5px;
+    border: 1px solid #fff;
+  }
+
+    .cover-item img {
+      max-width: 100%;
+      height: 7rem;
+    }
+
+    .cover-item:hover {
+      background: #eaeaea;
+    }
+
+
+  .cover-item-select {
+    border: 1px solid #1c8dee;
+  }
+</style>
+
+
+<!--<div class="row col-lg-12">
+    <div class="card card-block">
+        <div class="row col-lg-12 media">
+            <div class="col-lg-2" *ngFor="let item of files; let i=index" (click)="Select(item)" title="{{item.fileName}}">
+                <div class="media-item" [ngClass]="{'media-item-select':item.selected}">
+                    <img [src]="GetThumbnail(item)" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>-->
+
+<ng-template ngbModalContainer #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h5 class="modal-title">Select Cover Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+
+
+            <div class="row col-lg-12 cover">
+              <div class="col-lg-3" *ngFor="let file of allFiles|async; let i = index">
+                <div class="cover-item" title="{{file.fileName}}" (click)="Select(file)" [ngClass]="{'cover-item-select':file.id==selectedFile.id}">
+                  <img [src]="GetImagePath(file)" />
+                </div>
+              </div>
+              <!--<div class="col-lg-3">
+                  <div class="cover-item" >
+                      <img src="/images/dubai-marina-view-1920x1080-wallpaper-18532.jpg" />
+                  </div>
+              </div>-->
+
+
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary" (click)="SetCoverImage()">Set Cover Image</button>
+          <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+        </div>
+   
+
+
+
+</ng-template>
+<button class="btn btn-outline-primary btn-sm" (click)="OpenModel(content)">Select Cover Image</button>
+
+
+<!--<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h5 class="modal-title">Select Cover Image</h5>
+</div>
+<div class="modal-body">
+  <div class="container-fluid">
+
+
+    <div class="row col-lg-12 cover">
+      <div class="col-lg-3" *ngFor="let file of allFiles|async; let i = index">
+        <div class="cover-item" title="{{file.fileName}}" (click)="Select(file)" [ngClass]="{'cover-item-select':file.id==selectedFile.id}">
+          <img [src]="GetImagePath(file)" />
+        </div>
+      </div>
+      <div class="col-lg-3">
+          <div class="cover-item" >
+              <img src="/images/dubai-marina-view-1920x1080-wallpaper-18532.jpg" />
+          </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="SetCoverImage()">Set Cover Image</button>
+  <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+</div>-->

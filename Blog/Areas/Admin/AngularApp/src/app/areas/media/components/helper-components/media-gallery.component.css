@@ -1,0 +1,24 @@
+﻿.media {
+}
+
+    .media > div {
+        padding:5px;
+    }
+
+.media-item {
+    padding: 5px;
+    border: 1px solid #fff;
+}
+
+    .media-item img {
+        max-width: 100%;
+        height: 6rem;
+    }
+
+    .media-item:hover {
+        background: #eaeaea;
+    }
+
+.media-item-select {
+     border: 1px solid #1c8dee;
+}

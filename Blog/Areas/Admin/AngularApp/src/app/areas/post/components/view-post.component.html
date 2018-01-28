@@ -1,0 +1,105 @@
+
+
+<form [formGroup]="postForm">
+
+  <input type="hidden" name="postId" formControlName="id" />
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card card-body">
+        <div class="col-lg-12">
+
+          <div class="form-group">
+            <label class="form-control-label">Title<span class="asterisk">*</span></label>
+            <input type="text" value="" class="form-control" formControlName="postTitle" (change)="GeneratePermerlink()" />
+            <small *ngIf="postForm.controls.postTitle.touched && !postForm.controls.postTitle.valid" class="text-danger">Title cannot be blank</small>
+            <br />
+            <div class="form-inline">
+
+              <label>Permerlink: http://www.{{domainName}}/</label> <label *ngIf="!permerlinkEditStauts">{{urlString}}</label>
+              <input type="text" class="form-control" *ngIf="permerlinkEditStauts" formControlName="permerlink" />
+              <button class="btn btn-link btn-sm" (click)="EditPermerlink()" [disabled]="postForm.controls.permerlink.touched && !postForm.controls.permerlink.valid">{{permerlinkBtnText}}</button>
+              <br />
+              <small *ngIf="postForm.controls.permerlink.touched && !postForm.controls.permerlink.valid" class="text-danger">Permerlink cannot be blank</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <textarea rows="10" class="form-control" formControlName="content"></textarea>
+          </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card card-body mb-3">
+        <div class="form-group row">
+
+          <label for="postStatus" class="col-sm-3 col-form-label">Status :</label>
+
+          <div class="col-sm-4">
+            <select class="form-control" fromControlName="postStatus">
+              <option value="1">Draft</option>
+              <option value="2">Publish</option>
+              <option value="3">Private</option>
+              <option value="4">Private</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <label class="col-sm-3">Auto Save :</label> <label class="col-sm-9">Enabled</label>
+
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+
+            <div ngbDropdown class="btn-group" dropdown>
+              <button id="split-button" type="button" class="btn btn-outline-primary" (click)="Save()" [disabled]="!postForm.valid">Save</button>
+              <button type="button" class="btn  btn-outline-primary dropdown-toggle-split" ngbDropdownToggle>
+                <span class="caret"></span>
+                <span class="sr-only">Split button!</span>
+              </button>
+              <ul class="dropdown-menu col-lg-2" ngbDropdownMenu role="menu" aria-labelledby="split-button">
+                <li role="menuitem"><button class="dropdown-item btn btn-link" (click)="SaveClose()" [disabled]="!postForm.valid">Save & Close</button></li>
+                <li role="menuitem"><a class="dropdown-item  btn btn-link" (click)="Close()">Close</a></li>
+
+              </ul>
+            </div>
+            <!--   <button class="btn btn-outline-primary btn-block" (click)="Save()" [disabled]="!postForm.valid">Save</button>-->
+          </div>
+
+          <div class="col-sm-6">
+            <button class="btn btn-primary btn-block" (click)="Publish()" *ngIf="postStauts!='Publish'" [disabled]="!postForm.valid">Publish</button>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="card card-body">
+        <cover-image (setcover)="SetCover($event)"></cover-image>
+        <br /><br />
+        <div class="row" *ngIf="coverImage!=null">
+          <div class="col-lg-12">
+            <a class="btn btn-sm btn-outline-primary btn-clear-cover pull-lg-right text-sm-right" (click)="RemoveCoverImage()">Remove</a>
+
+            <img style="width:100%;height:auto;" [src]="GetCoverImage()" />
+          </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-lg-12">
+                <button class="btn btn-outline-primary btn-sm">Select Cover Image</button>
+            </div>
+        </div>-->
+
+      </div>
+    </div>
+  </div>
+
+
+</form>

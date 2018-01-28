@@ -1,0 +1,44 @@
+
+
+<ng-template ngbModalContainer #content let-c="close" let-d="dismiss">
+
+  <div class="modal-header">
+    <h4 class="modal-title">Upload Media Files</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+
+      <div class="row col-lg-12">
+        <button class="btn btn-primary" (click)="BrowseFile()">Browse Files</button>
+        <button class="btn btn-outline-primary" *ngIf="uploadFiles.length > 0" (click)="DeleteAll()">Delete All</button>
+        <button class="btn btn-outline-primary" *ngIf="selectedFiles.length > 0" (click)="Delete()">Delete</button>
+
+      </div>
+
+      <div class="row col-lg-12 upload">
+        <div class="col-lg-2" *ngFor="let file of uploadFiles">
+          <div class="upload-item" *ngIf="file.isProgress">
+            <img src="/images/common_file.png" />
+            <label class="upload-item-percentage">{{file.progressValue}}%</label>
+          </div>
+          <div class="upload-item" *ngIf="!file.isProgress" title="{{file.fileName}}" (click)="Select(file)" [ngClass]="{'upload-item-select':file.selected}">
+            <img [style.margin-left]="file.fileType=='Image' ? '0':'15px'" src="{{file.path}}" />
+          </div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+<button class="btn btn-primary" (click)="OpenModel(content)">Upload</button>
+<input #fileInput type="file" style="display:none;" id="fileInput" (change)="Upload($event)" multiple />

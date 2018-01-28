@@ -1,0 +1,31 @@
+    <div class="row col-lg-12">
+        <nav class="action-bar">
+            <button class="btn btn-primary action-bar-item" routerLink="../new">New Post</button>
+        </nav>
+    </div>
+
+  <div class="row col-lg-12">
+        <div class="card w-100">
+          <div class="card-body">
+            <div class="list-group">
+              <div *ngFor="let post of posts |async" class="list-group-item d-flex">
+                <div class="col-lg-4"><label class="">{{post.postTitle}}</label> </div>
+                <div class="col-lg-4"> <label class="">{{post.postStatus}}</label> </div>
+                <div class="col-lg-4 d-inline-flex">
+                  <div class="col-lg-6 ">
+                    <button class="btn btn-outline-primary btn-block btn-sm" (click)="Edit(post)">Edit</button>
+                  </div>
+                  <div class="col-lg-6">
+                    <button class="btn btn-outline-primary btn-block btn-sm" (click)="Delete(post)">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+

@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url("~bootstrap/dist/css/bootstrap.css");
+@import url(assets/css/dashboard.css);
+
+
+.selected {
+  color: #6000ff;
+}
+
+body {
+  background-color: #f2f2f2;
+}
+
+.sidebar .nav-sidebar li.active {
+  background-color: #e8e8e8;
+  color: #111;
+}
+
+
+.sidebar .nav-sidebar li:not(.active):hover {
+  background-color: #b9b9b9;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.asterisk {
+  font-size: 16px;
+  color: #e05708;
+  font-weight: 800;
+  margin-left: 2px;
+}
+
+.action-bar {
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  width:100%;
+}
+
+.action-bar-item {
+  margin: 0 2px;
+}
+
+.navbar .user-detail {
+}
+
+  .navbar .user-detail img {
+    width: 30px;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  .navbar .user-detail span {
+    padding-top: .425rem;
+    padding-bottom: .425rem;
+  }
+
+    .navbar .user-detail span .fa-caret-down {
+      font-size: 0.8rem;
+      padding-left: 5px;
+    }
+
+.navbar .user-action-menu {
+  margin-top: 8%;
+}
+
+  .navbar .user-action-menu a > i {
+    /*border-right:1px solid #e8e8e8;*/
+    padding-right: 2px;
+  }
+
+.navbar .user-action {
+  margin-top: 3px;
+}
+

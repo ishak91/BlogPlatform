@@ -1,0 +1,13 @@
+﻿<div class="row col-lg-12">
+    <div class="card card-block">
+        <div class="row col-lg-12 media">
+            <div class="col-lg-2" *ngFor="let item of files; let i=index" (click)="Select(item)"  title="{{item.fileName}}">
+                <div class="media-item" [ngClass]="{'media-item-select':item.selected}" >
+                    <img [src]="GetThumbnail(item)" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>  

@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="action-bar">
+            <media-upload (close)="UploadModelClose($event)"></media-upload>
+        </div>
+    </div>
+    <media-gallery (select)="Select($event)" [files]="allFiles | async"></media-gallery>
+</div>
+
