@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Repository
 {
-    public interface ILookupRepository :IRepository
+    public interface ILookupRepository :IRepository<Lookup>
     {
-        IEnumerable<Lookup> GetAll(string type);
+        IEnumerable<Lookup> Get(string type);
     }
 }

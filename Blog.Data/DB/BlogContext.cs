@@ -16,14 +16,14 @@ namespace Blog.Data.DB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          //  optionsBuilder.UseSqlServer("Server=AHAMEDI\\AHAMEDI;Database=BlogApp_int;User Id=BLOG_USER;Password=pass#word1;MultipleActiveResultSets=true");
+            //optionsBuilder.UseSqlServer("Server=AHAMEDI\\AHAMEDI;Database=BlogApp_int;User Id=BLOG_USER;Password=pass#word1;MultipleActiveResultSets=true");
         }
 
 
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<MediaFile> MediaFiles { get; set; }
-
+        
         public DbSet<Lookup> Lookup { get; set; }
     }
 }

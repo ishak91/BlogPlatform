@@ -14,9 +14,9 @@ namespace Blog.Controllers
     [Route("api/[controller]")]
     public class MediaController : Controller
     {
-        private readonly IMediaManager _fileManager;
+        private readonly IMediaFileManager _fileManager;
 
-        public MediaController(IMediaManager fileManager)
+        public MediaController(IMediaFileManager fileManager)
         {
             _fileManager = fileManager;
         }

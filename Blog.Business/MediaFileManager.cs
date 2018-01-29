@@ -5,22 +5,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Data.Entity;
 using Blog.Core.Repository;
+using Blog.Core;
+using Blog.Repository.UnitOfWork;
 
 namespace Blog.Business
 {
-    public class MediaManager : IMediaManager
+    public class MediaFileManager : IMediaFileManager
     {
-        private readonly IMediaFileRepository _fileRepository;
-        public MediaManager(IMediaFileRepository fileRepository)
+       
+        private readonly UnitOfWork _unitOfWork;
+
+        public MediaFileManager(UnitOfWork unitOfWork)
         {
-            _fileRepository = fileRepository;
+            _unitOfWork = unitOfWork;
         }
         public void AddFile(MediaFile model)
         {
             try
             {
-                _fileRepository.AddFile(model);
-                _fileRepository.SaveChangesAsync();
+                _unitOfWork.MediaFileRepository.Add(model);
+                _unitOfWork.SaveChanges();
             }
             catch (Exception)
             {
@@ -36,10 +40,10 @@ namespace Blog.Business
                 foreach (var file in model)
                 {
 
-                    _fileRepository.AddFile(file);
+                    _unitOfWork.MediaFileRepository.Add(file);
                 }
 
-                 _fileRepository.SaveChanges();
+                 _unitOfWork.SaveChanges();
 
 
 
@@ -55,7 +59,7 @@ namespace Blog.Business
         {
             try
             {
-               return _fileRepository.FilterByFileType(fileType);
+               return _unitOfWork.MediaFileRepository.FilterByFileType(fileType);
             }
             catch (Exception)
             {
@@ -81,7 +85,7 @@ namespace Blog.Business
         {
             try
             {
-               return _fileRepository.Find(fileName);
+               return _unitOfWork.MediaFileRepository.Find(fileName);
             }
             catch (Exception)
             {
@@ -92,7 +96,7 @@ namespace Blog.Business
 
         public MediaFile Find(int id)
         {
-            return _fileRepository.Find(id);
+            return _unitOfWork.MediaFileRepository.Get(id);
         }
 
 
@@ -127,7 +131,7 @@ namespace Blog.Business
         {
             try
             {
-                return _fileRepository.GetAll();
+                return _unitOfWork.MediaFileRepository.ListAll();
             }
             catch (Exception)
             {
@@ -155,10 +159,10 @@ namespace Blog.Business
             {
                 foreach (var file in model)
                 {
-                    _fileRepository.RemoveFile(file);
+                    _unitOfWork.MediaFileRepository.Delete(file.Id);
                   
                 }
-                _fileRepository.SaveChanges();
+                _unitOfWork.SaveChanges();
             }
             catch (Exception)
             {
@@ -171,8 +175,8 @@ namespace Blog.Business
         {
             try
             {
-                _fileRepository.RemoveFile(model);
-                _fileRepository.SaveChanges();
+                _unitOfWork.MediaFileRepository.Delete(model.Id);
+                _unitOfWork.SaveChanges();
             }
             catch (Exception)
             {

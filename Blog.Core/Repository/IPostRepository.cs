@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Repository
 {
-    public interface IPostRepository :IRepository
+    public interface IPostRepository :IRepository<Post>
     {
-        void CreateNewPost(Post entity);
-     
-        IEnumerable<Post> GetAll();
-        Post GetPost(int id);
-
-        void UpdatePost(Post post);
-
-        void RemovePost(Post post);
-
-     
+        
     }
 }

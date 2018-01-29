@@ -5,19 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Data.Entity;
 using Blog.Core.Repository;
+using Blog.Repository.UnitOfWork;
 
 namespace Blog.Business
 {
     public class LookupManager : ILookupManager
     {
-        private readonly ILookupRepository _lookupRepository;
-        public LookupManager(ILookupRepository lookupRepository)
+        private readonly UnitOfWork _unitOfWork;
+
+        public LookupManager(UnitOfWork unitOfWork)
         {
-            _lookupRepository = lookupRepository;
+            _unitOfWork = unitOfWork;
         }
         public IEnumerable<Lookup> GetAll(string type)
         {
-            return _lookupRepository.GetAll(type);
+            return _unitOfWork.LookupRepository.Get(type);
         }
     }
 }

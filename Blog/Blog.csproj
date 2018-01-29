@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Blog.Common\Blog.Common.csproj" />
     <ProjectReference Include="..\Blog.Core\Blog.Core.csproj" />
+    <ProjectReference Include="..\Blog.Extensions\Blog.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Business
 {
-    public interface IMediaManager
+    public interface IMediaFileManager
     {
         void AddFile(MediaFile model);
         void AddFile(IEnumerable<MediaFile> model);

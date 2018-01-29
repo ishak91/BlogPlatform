@@ -5,15 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Data.Entity;
 using Blog.Core.Repository;
+using Blog.Repository.UnitOfWork;
 
 namespace Blog.Business
 {
     public class PostManager : IPostManager
     {
-        private readonly IPostRepository _postRepository;
-        public PostManager(IPostRepository postRepository)
+        private readonly UnitOfWork _unitOfWork;
+        public PostManager(UnitOfWork unitOfWork)
         {
-            _postRepository = postRepository;
+            _unitOfWork = unitOfWork;
         }
         public int CreateNewPost(Post entity)
         {
@@ -21,8 +22,8 @@ namespace Blog.Business
             entity.LastUpdatedBy = 1;
             entity.CreatedDate = DateTime.Now;
             entity.LastUpdatedDate = DateTime.Now;
-            _postRepository.CreateNewPost(entity);
-            _postRepository.SaveChanges();
+            _unitOfWork.PostRepository.Add(entity);
+            _unitOfWork.SaveChanges();
             var id = entity.Id;
             return id;
         }
@@ -36,7 +37,7 @@ namespace Blog.Business
 
         public IEnumerable<Post> GetAll()
         {
-            return _postRepository.GetAll();
+            return _unitOfWork.PostRepository.ListAll();
         }
 
         public Task<IEnumerable<Post>> GetAllAsync()
@@ -49,7 +50,7 @@ namespace Blog.Business
 
         public Post GetPost(int id)
         {
-          return  _postRepository.GetPost(id);
+          return _unitOfWork.PostRepository.Get(id);
         }
 
         public Task<Post> GetPostAsync(int id)
@@ -61,8 +62,8 @@ namespace Blog.Business
 
         public int RemovePost(Post post)
         {
-             _postRepository.RemovePost(post);
-           return _postRepository.SaveChanges();
+            _unitOfWork.PostRepository.Delete(post.Id);
+           return _unitOfWork.SaveChanges();
         }
 
         public Task<int> RemovePostAsync(Post post)
@@ -76,8 +77,8 @@ namespace Blog.Business
         public int UpdatePost(Post post)
         {
             post.LastUpdatedDate = DateTime.Now;
-            _postRepository.UpdatePost(post);
-            return _postRepository.SaveChanges();
+            _unitOfWork.PostRepository.Update(post);
+            return _unitOfWork.SaveChanges();
         }
 
         public Task<int> UpdatePostAsync(Post post)

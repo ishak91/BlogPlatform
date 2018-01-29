@@ -19,9 +19,9 @@ namespace Blog.Controllers
     public class FileHandlerController : Controller
     {
         private readonly IHostingEnvironment _hostingEnv;
-        private readonly IMediaManager _fileManager;
+        private readonly IMediaFileManager _fileManager;
 
-        public FileHandlerController(IHostingEnvironment hostingEnv, IMediaManager fileManager)
+        public FileHandlerController(IHostingEnvironment hostingEnv, IMediaFileManager fileManager)
         {
             _hostingEnv = hostingEnv;
             _fileManager = fileManager;

@@ -19,10 +19,10 @@ namespace Blog.Controllers
     public class PostController : Controller
     {
         private readonly IPostManager _postManager;
-        private readonly IMediaManager _mediaManager;
+        private readonly IMediaFileManager _mediaManager;
         private readonly ILogger<PostController> _logger;
 
-        public PostController(IPostManager postManager, ILogger<PostController> logger,IMediaManager mediaManager)
+        public PostController(IPostManager postManager, ILogger<PostController> logger, IMediaFileManager mediaManager)
         {
             _postManager = postManager;
             _mediaManager = mediaManager;

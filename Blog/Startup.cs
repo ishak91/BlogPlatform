@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Blog.Data.Extensions;
 
 namespace Blog
 {
@@ -22,6 +24,14 @@ namespace Blog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddBlogContext(Configuration.GetConnectionString("Connection"));
+
+            //Dependency Injection
+            services.AddBusinessDependencies();
+            services.AddRepositoryDependencies();
+            services.AddCommonDependencies();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

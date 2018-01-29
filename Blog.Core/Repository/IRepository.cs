@@ -1,10 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blog.Core.Repository
 {
-    public interface IRepository
+    public interface IRepository<Entity> where Entity : class
     {
-        int SaveChanges();
-        Task<int> SaveChangesAsync();
+        Entity Get(int id);
+        void Add(Entity entity);
+        void Update(Entity entity);
+        void Delete(int id);
+        IQueryable<Entity> ListAll();
     }
 }
