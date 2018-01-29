@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository.UnitOfWork
 {
-    public class UnitOfWork :IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly BlogContext _blogContext;
 
 
-        private readonly IMediaFileRepository _mediaFileRepository;
-        private readonly IPostRepository _postRepository;
-        private readonly ILookupRepository _lookupRepository;
+        private IMediaFileRepository _mediaFileRepository;
+        private IPostRepository _postRepository;
+        private ILookupRepository _lookupRepository;
 
         public UnitOfWork(BlogContext blogContext)
         {
@@ -30,7 +30,7 @@ namespace Blog.Repository.UnitOfWork
             get
             {
                 if (_mediaFileRepository == null)
-                    return new MediaFileRepository(_blogContext);
+                    _mediaFileRepository = new MediaFileRepository(_blogContext);
 
                 return _mediaFileRepository;
             }
@@ -41,7 +41,7 @@ namespace Blog.Repository.UnitOfWork
             get
             {
                 if (_postRepository == null)
-                    return new PostRepository(_blogContext);
+                    _postRepository = new PostRepository(_blogContext);
 
                 return _postRepository;
             }
@@ -53,7 +53,7 @@ namespace Blog.Repository.UnitOfWork
             get
             {
                 if (_lookupRepository == null)
-                    return new LookupRepository(_blogContext);
+                    _lookupRepository = new LookupRepository(_blogContext);
 
                 return _lookupRepository;
             }
