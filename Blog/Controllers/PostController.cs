@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Cors;
 using Blog.Common.ViewModel;
+using Blog.Common.DTO;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -69,7 +70,7 @@ namespace Blog.Controllers
             {
                 if (post.Id == 0)
                 {
-                post.Id= _postManager.CreateNewPost(new Post {
+                post.Id= _postManager.CreateNewPost(new PostDto {
                         PostTitle=post.PostTitle,
                         Content=post.Content,
                         Permerlink=post.Permerlink,
@@ -79,7 +80,7 @@ namespace Blog.Controllers
                 }
                 else
                 {
-                   Post updateModel=await _postManager.GetPostAsync(post.Id);
+                   PostDto updateModel=await _postManager.GetPostAsync(post.Id);
 
                     updateModel.PostTitle = post.PostTitle;
                     updateModel.Content = post.Content;
@@ -106,9 +107,9 @@ namespace Blog.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePost(int id, [FromBody]Post post)
+        public async Task<IActionResult> UpdatePost(int id, [FromBody]PostDto post)
         {
-            Post originalPost =await _postManager.GetPostAsync(id);
+            PostDto originalPost =await _postManager.GetPostAsync(id);
 
             originalPost.PostTitle = post.PostTitle;
             originalPost.Content = post.Content;
@@ -123,13 +124,12 @@ namespace Blog.Controllers
         [HttpDelete("{id}")]
         public IActionResult RemovePost(int id)
         {
-            Post post = _postManager.GetPost(id);
+            PostDto post = _postManager.GetPost(id);
 
-            _postManager.RemovePost(post);
+            _postManager.RemovePost(id);
 
             var deleteObj = new {
                 id,
-                post.PostTitle,
                 postStatus="Deleted"
 
             };

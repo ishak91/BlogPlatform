@@ -1,4 +1,5 @@
-﻿using Blog.Data.Entity;
+﻿using Blog.Common.DTO;
+using Blog.Data.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +9,18 @@ namespace Blog.Core.Business
 {
     public interface IPostManager
     {
-        int CreateNewPost(Post entity);
-        Task<int> CreateNewPostAsync(Post entity);
-        IEnumerable<Post> GetAll();
-        Task<IEnumerable<Post>> GetAllAsync();
-        Post GetPost(int id);
-        Task<Post> GetPostAsync(int id);
+        int CreateNewPost(PostDto entity);
+        Task<int> CreateNewPostAsync(PostDto entity);
+        IEnumerable<PostDto> GetAll();
+        Task<IEnumerable<PostDto>> GetAllAsync();
+        PostDto GetPost(int id);
+        Task<PostDto> GetPostAsync(int id);
 
-        int UpdatePost(Post post);
+        int UpdatePost(PostDto PostDto);
 
-        Task<int> UpdatePostAsync(Post post);
-        int RemovePost(Post post);
-        Task<int> RemovePostAsync(Post post);
+        Task<int> UpdatePostAsync(PostDto PostDto);
+        int RemovePost(int postId);
+        Task<int> RemovePostAsync(int postId);
 
     }
 }

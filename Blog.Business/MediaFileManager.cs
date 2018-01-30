@@ -7,6 +7,7 @@ using Blog.Data.Entity;
 using Blog.Core.Repository;
 using Blog.Core;
 using Blog.Repository.UnitOfWork;
+using Blog.Common.DTO;
 
 namespace Blog.Business
 {
@@ -14,16 +15,19 @@ namespace Blog.Business
     {
        
         private readonly UnitOfWork _unitOfWork;
+        private readonly IMapper<MediaFile, MediaFileDto> _mediaFileMapper;
 
-        public MediaFileManager(UnitOfWork unitOfWork)
+        public MediaFileManager(UnitOfWork unitOfWork,IMapper<MediaFile,MediaFileDto> mediaFileMapper)
         {
             _unitOfWork = unitOfWork;
+            _mediaFileMapper = mediaFileMapper;
         }
-        public void AddFile(MediaFile model)
+        public void AddFile(MediaFileDto model)
         {
             try
             {
-                _unitOfWork.MediaFileRepository.Add(model);
+                var entity = _mediaFileMapper.Map(model);
+                _unitOfWork.MediaFileRepository.Add(entity);
                 _unitOfWork.SaveChanges();
             }
             catch (Exception)
@@ -33,14 +37,15 @@ namespace Blog.Business
             }
         }
 
-        public void AddFile(IEnumerable<MediaFile> model)
+        public void AddFile(IEnumerable<MediaFileDto> model)
         {
             try
             {
+                MediaFile entity;
                 foreach (var file in model)
                 {
-
-                    _unitOfWork.MediaFileRepository.Add(file);
+                   entity= _mediaFileMapper.Map(file);
+                    _unitOfWork.MediaFileRepository.Add(entity);
                 }
 
                  _unitOfWork.SaveChanges();
@@ -55,11 +60,11 @@ namespace Blog.Business
             }
         }
 
-        public IEnumerable<MediaFile> FilterByFileType(string fileType)
+        public IEnumerable<MediaFileDto> FilterByFileType(string fileType)
         {
             try
             {
-               return _unitOfWork.MediaFileRepository.FilterByFileType(fileType);
+               return  _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.FilterByFileType(fileType));
             }
             catch (Exception)
             {
@@ -68,7 +73,7 @@ namespace Blog.Business
             }
         }
 
-        public Task<IEnumerable<MediaFile>> FilterByFileTypeAsync(string fileType)
+        public Task<IEnumerable<MediaFileDto>> FilterByFileTypeAsync(string fileType)
         {
             try
             {
@@ -81,11 +86,11 @@ namespace Blog.Business
             }
         }
 
-        public IEnumerable<MediaFile> Find(string fileName)
+        public IEnumerable<MediaFileDto> Find(string fileName)
         {
             try
             {
-               return _unitOfWork.MediaFileRepository.Find(fileName);
+               return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.Find(fileName));
             }
             catch (Exception)
             {
@@ -94,14 +99,14 @@ namespace Blog.Business
             }
         }
 
-        public MediaFile Find(int id)
+        public MediaFileDto Find(int id)
         {
-            return _unitOfWork.MediaFileRepository.Get(id);
+            return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.Get(id));
         }
 
 
 
-        public Task<IEnumerable<MediaFile>> FindAsync(string fileName)
+        public Task<IEnumerable<MediaFileDto>> FindAsync(string fileName)
         {
             try
             {
@@ -114,7 +119,7 @@ namespace Blog.Business
             }
         }
 
-        public Task<MediaFile> FindAsync(int id)
+        public Task<MediaFileDto> FindAsync(int id)
         {
             try
             {
@@ -127,11 +132,11 @@ namespace Blog.Business
             }
         }
 
-        public IEnumerable<MediaFile> GetAll()
+        public IEnumerable<MediaFileDto> GetAll()
         {
             try
             {
-                return _unitOfWork.MediaFileRepository.ListAll();
+                return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.ListAll());
             }
             catch (Exception)
             {
@@ -140,7 +145,7 @@ namespace Blog.Business
             }
         }
 
-        public Task<IEnumerable<MediaFile>> GetAllAsync()
+        public Task<IEnumerable<MediaFileDto>> GetAllAsync()
         {
             try
             {
@@ -153,7 +158,7 @@ namespace Blog.Business
             }
         }
 
-        public void RemoveFile(IEnumerable<MediaFile> model)
+        public void RemoveFile(IEnumerable<MediaFileDto> model)
         {
             try
             {
@@ -171,11 +176,11 @@ namespace Blog.Business
             }
         }
 
-        public void RemoveFile(MediaFile model)
+        public void RemoveFile(int mediaFileId)
         {
             try
             {
-                _unitOfWork.MediaFileRepository.Delete(model.Id);
+                _unitOfWork.MediaFileRepository.Delete(mediaFileId);
                 _unitOfWork.SaveChanges();
             }
             catch (Exception)
@@ -184,6 +189,15 @@ namespace Blog.Business
                 throw;
             }
        
+        }
+
+        public void RemoveFile(IEnumerable<int> ids)
+        {
+            foreach (var id in ids)
+            {
+                _unitOfWork.MediaFileRepository.Delete(id);
+            }
+            
         }
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Blog.Data.Entity;
 using Blog.Common.ViewModel;
 using Blog.Core.Business;
+using Blog.Common.DTO;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,7 +26,7 @@ namespace Blog.Controllers
         [HttpGet]
         public async Task<JsonResult> Get()
         {
-            IEnumerable<MediaFile> files = await _fileManager.GetAllAsync();
+            IEnumerable<MediaFileDto> files = await _fileManager.GetAllAsync();
 
             var filesVm = from file in files
                           select new FileViewModel
@@ -52,12 +53,12 @@ namespace Blog.Controllers
             }
             else if (filterType.ToLowerInvariant().Contains("filename"))
             {
-                IEnumerable<MediaFile> mediaFiles = await _fileManager.FindAsync(filterValue);
+                IEnumerable<MediaFileDto> mediaFiles = await _fileManager.FindAsync(filterValue);
                 files = mediaFiles.Select(f => new FileViewModel { FileName = f.FileName, Id = f.Id }).ToList();
             }
             else if (filterType.ToLowerInvariant().Contains("filetype"))
             {
-                IEnumerable<MediaFile> mediaFiles = await _fileManager.FilterByFileTypeAsync(filterValue);
+                IEnumerable<MediaFileDto> mediaFiles = await _fileManager.FilterByFileTypeAsync(filterValue);
                 files = mediaFiles.Select(f => new FileViewModel { FileName = f.FileName, Id = f.Id }).ToList();
             }
 
@@ -73,12 +74,12 @@ namespace Blog.Controllers
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public async Task<OkResult> Delete(int id)
+        public OkResult Delete(int id)
         {
 
-            MediaFile file = await _fileManager.FindAsync(id);
+          
 
-            _fileManager.RemoveFile(file);
+            _fileManager.RemoveFile(id);
 
             return Ok();
         }
@@ -86,15 +87,8 @@ namespace Blog.Controllers
         [HttpPost]
         public  OkResult Delete(IEnumerable<int> ids)
         {
-            var deleteFiles = new List<MediaFile>();
-
-            foreach (var id in ids)
-            {
-                MediaFile file =  _fileManager.Find(id);
-                deleteFiles.Add(file);
-            }
-
-            _fileManager.RemoveFile(deleteFiles);
+       
+            _fileManager.RemoveFile(ids);
 
             return Ok();
         }

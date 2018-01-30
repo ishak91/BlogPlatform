@@ -9,6 +9,7 @@ using Microsoft.Net.Http.Headers;
 using System.IO;
 using Blog.Common.ViewModel;
 using Blog.Core.Business;
+using Blog.Common.DTO;
 
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -33,7 +34,7 @@ namespace Blog.Controllers
         {
             var files = Request.Form.Files;
 
-            var uplodedFiles = new List<Blog.Data.Entity.MediaFile>();
+            var uplodedFiles = new List<MediaFileDto>();
             long size = 0;
             foreach (var file in files)
             {
@@ -76,7 +77,7 @@ namespace Blog.Controllers
 
 
 
-                    uplodedFiles.Add(new Blog.Data.Entity.MediaFile
+                    uplodedFiles.Add(new MediaFileDto
                     {
                         FileName = filename,
                         Path = $@"MediaFiles\{filename}",
@@ -119,13 +120,13 @@ namespace Blog.Controllers
 
                 if (id != 0)
                 {
-                    Blog.Data.Entity.MediaFile file = await _fileManager.FindAsync(id);
+                    MediaFileDto file = await _fileManager.FindAsync(id);
                     var filePath = $@"{_hostingEnv.WebRootPath}\{file.Path}";
                     return new PhysicalFileResult(filePath, file.ContentType);
                 }
                 else
                 {
-                    IEnumerable<Blog.Data.Entity.MediaFile> file = await _fileManager.FindAsync(fileName);
+                    IEnumerable<MediaFileDto> file = await _fileManager.FindAsync(fileName);
                     var filePath = $@"{_hostingEnv.WebRootPath}\{file.FirstOrDefault().Path}";
                     return new PhysicalFileResult(filePath, file.FirstOrDefault().ContentType);
                 }
