@@ -11,10 +11,9 @@ namespace Blog.Business.Mappers
 {
     public class PostMapper : IMapper<Post, PostDto>
     {
-        private readonly IMapper<MediaFile, MediaFileDto> _mediaFileMapper;
-        public PostMapper(IMapper<MediaFile, MediaFileDto> mediaFileMapper)
+        public PostMapper()
         {
-            _mediaFileMapper = mediaFileMapper;
+           
         }
 
         public PostDto Map(Post source)
@@ -25,7 +24,15 @@ namespace Blog.Business.Mappers
             return new PostDto {
                 Id=source.Id,
                 Content=source.Content,
-                CoverImage=_mediaFileMapper.Map(source.CoverImage),
+                CoverImage= source.CoverImage!=null? new MediaFileDto {
+                    ContentType = source.CoverImage.ContentType,
+                    CreatedDate = source.CoverImage.CreatedDate,
+                    FileName = source.CoverImage.FileName,
+                    FileType = source.CoverImage.FileType,
+                    Id = source.CoverImage.Id,
+                    Path = source.CoverImage.Path,
+                    Size = source.CoverImage.Size
+                }:null,
                 CoverImageId=source.CoverImageId,
                 CreatedBy=source.CreatedBy,
                 CreatedDate=source.CreatedDate,
@@ -61,7 +68,16 @@ namespace Blog.Business.Mappers
             {
                 Id = source.Id,
                 Content = source.Content,
-                CoverImage = _mediaFileMapper.Map(source.CoverImage),
+                CoverImage =source.CoverImage!=null ? new MediaFile
+                {
+                    ContentType = source.CoverImage.ContentType,
+                    CreatedDate = source.CoverImage.CreatedDate,
+                    FileName = source.CoverImage.FileName,
+                    FileType = source.CoverImage.FileType,
+                    Id = source.CoverImage.Id,
+                    Path = source.CoverImage.Path,
+                    Size = source.CoverImage.Size
+                }:null,
                 CoverImageId = source.CoverImageId,
                 CreatedBy = source.CreatedBy,
                 CreatedDate = source.CreatedDate,

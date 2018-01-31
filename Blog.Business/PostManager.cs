@@ -15,31 +15,31 @@ namespace Blog.Business
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper<Post, PostDto> _postMapper;
-        private readonly IMapper<MediaFile, MediaFileDto> _mediaMapper;
 
         public PostManager(UnitOfWork unitOfWork,IMapper<Post,PostDto> postMapper)
         {
             _unitOfWork = unitOfWork;
             _postMapper = postMapper;
         }
-        public int CreateNewPost(PostDto entity)
+        public int CreateNewPost(PostDto post)
         {
-            entity.CreatedBy = 1;
-            entity.LastUpdatedBy = 1;
-            entity.CreatedDate = DateTime.Now;
-            entity.LastUpdatedDate = DateTime.Now;
+            post.CreatedBy = 1;
+            post.LastUpdatedBy = 1;
+            post.CreatedDate = DateTime.Now;
+            post.LastUpdatedDate = DateTime.Now;
 
+            var entity = _postMapper.Map(post);
 
-            _unitOfWork.PostRepository.Add(_postMapper.Map(entity));
+            _unitOfWork.PostRepository.Add(entity);
             _unitOfWork.SaveChanges();
-            var id = entity.Id;
-            return id;
+          
+            return entity.Id;
         }
 
-        public Task<int> CreateNewPostAsync(PostDto entity)
+        public Task<int> CreateNewPostAsync(PostDto post)
         {
             return Task.Run(() => {
-               return CreateNewPost(entity);
+               return CreateNewPost(post);
             });
         }
 
@@ -54,11 +54,6 @@ namespace Blog.Business
 
                 return GetAll();
             });
-        }
-
-        public Task<IEnumerable<MediaFileDto>> GetMediaAsync(int postId)
-        {
-            throw new NotImplementedException();
         }
 
         public PostDto GetPost(int id)

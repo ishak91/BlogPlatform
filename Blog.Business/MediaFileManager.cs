@@ -60,6 +60,16 @@ namespace Blog.Business
             }
         }
 
+        public Task AddFileAsync(MediaFileDto model)
+        {
+            return Task.Run(() => AddFile(model));
+        }
+
+        public Task AddFileAsync(IEnumerable<MediaFileDto> model)
+        {
+            return Task.Run(() => AddFile(model));
+        }
+
         public IEnumerable<MediaFileDto> FilterByFileType(string fileType)
         {
             try
@@ -103,8 +113,6 @@ namespace Blog.Business
         {
             return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.Get(id));
         }
-
-
 
         public Task<IEnumerable<MediaFileDto>> FindAsync(string fileName)
         {
@@ -198,6 +206,21 @@ namespace Blog.Business
                 _unitOfWork.MediaFileRepository.Delete(id);
             }
             
+        }
+
+        public Task RemoveFileAsync(int mediaFileId)
+        {
+            return Task.Run(() => RemoveFile(mediaFileId));
+        }
+
+        public Task RemoveFileAsync(IEnumerable<MediaFileDto> model)
+        {
+            return Task.Run(() => RemoveFile(model));
+        }
+
+        public Task RemoveFileAsync(IEnumerable<int> ids)
+        {
+            return Task.Run(() => RemoveFile(ids));
         }
     }
 }
