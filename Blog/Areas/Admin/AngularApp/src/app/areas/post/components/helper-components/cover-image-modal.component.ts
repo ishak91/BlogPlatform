@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -52,7 +52,7 @@ export class CoverImageModalComponent implements OnInit {
     }
 
     private GetImagePath(file: File) {
-        return this._appConfig.GetBaseApiUrl() + "/FileHandler/" + file.id + "/" + file.fileName;
+      return this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
     }
 
     private SetCoverImage()

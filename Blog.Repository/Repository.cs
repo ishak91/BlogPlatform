@@ -40,7 +40,9 @@ namespace Blog.Repository
 
         public virtual Entity Get(int id)
         {
-            return _entitySet.Find(id);
+            var entity=_entitySet.Find(id);
+
+            return entity;
         }
 
         public IQueryable<Entity> GetAll()
@@ -50,6 +52,8 @@ namespace Blog.Repository
 
         public virtual void Update(Entity entity)
         {
+           
+          //  _entitySet.Attach(entity);
             _entitySet.Update(entity);
         }
     }

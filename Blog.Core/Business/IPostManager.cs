@@ -1,4 +1,5 @@
 ﻿using Blog.Common.DTO;
+using Blog.Common.Wrappers;
 using Blog.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace Blog.Core.Business
         PostDto GetPost(int id);
         Task<PostDto> GetPostAsync(int id);
 
-        int UpdatePost(PostDto PostDto);
+        int UpdatePost(AdminUpdatePostWrapper wrapper);
 
-        Task<int> UpdatePostAsync(PostDto PostDto);
+        Task<int> UpdatePostAsync(AdminUpdatePostWrapper wrapper);
         int RemovePost(int postId);
         Task<int> RemovePostAsync(int postId);
 

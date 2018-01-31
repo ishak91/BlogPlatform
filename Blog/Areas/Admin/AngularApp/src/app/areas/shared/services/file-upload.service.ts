@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, RequestMethod } from '@angular/http';
 
 import {AppConfig } from '../../../app.config';
@@ -12,7 +12,8 @@ export class FileUploadService
 
     UploadXHR(file: File, progress?: Function, complete?: Function, error?: Function)
     {
-        let url = this.appConfig.GetBaseApiUrl() + '/FileHandler';
+  //    let url = this.appConfig.GetBaseUrl() + '/api/file';
+      let url = "http://localhost:5000/api/file";
 
         let xhr = new XMLHttpRequest();
 

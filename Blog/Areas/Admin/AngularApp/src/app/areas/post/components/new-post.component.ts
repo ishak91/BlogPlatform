@@ -138,7 +138,7 @@ export class NewPostComponent implements OnInit{
 
     private GetCoverImage()
     {
-        return this._appConfig.GetBaseApiUrl() + "/FileHandler/" + this.coverImage.id + "/" + this.coverImage.fileName;
+      return this._appConfig.GetBaseUrl() + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
     }
 
     private SetCover(file:File)

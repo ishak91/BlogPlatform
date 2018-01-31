@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Microsoft.AspNetCore.Cors;
 using Blog.Common.ViewModel;
 using Blog.Common.DTO;
+using Blog.Common.Wrappers;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -52,10 +53,7 @@ namespace Blog.Areas.Admin.Controllers
                 post.Content,
                 post.PostStatus,
                 post.Permerlink,
-                coverImage=new {
-                    post.CoverImage.Id,
-                    post.CoverImage.FileName
-                }
+                coverImage=post.CoverImageId!=null ? Url.Action("PostCoverImage",new { postId=post.Id}):null
             };
 
             return Json(postModel);
@@ -70,28 +68,38 @@ namespace Blog.Areas.Admin.Controllers
             {
                 if (post.Id == 0)
                 {
-                post.Id= await _postManager.CreateNewPostAsync(new PostDto {
-                        PostTitle=post.PostTitle,
-                        Content=post.Content,
-                        Permerlink=post.Permerlink,
-                        PostStatus=post.PostStatus,
-                        CoverImageId = post.CoverImage!=null ?(int?)post.CoverImage.Id : null
+                    post.Id = await _postManager.CreateNewPostAsync(new PostDto
+                    {
+                        PostTitle = post.PostTitle,
+                        Content = post.Content,
+                        Permerlink = post.Permerlink,
+                        PostStatus = post.PostStatus,
+                        CoverImageId = post.CoverImage != null ? (int?)post.CoverImage.Id : null
                     });
                 }
                 else
                 {
-                   PostDto updateModel=await _postManager.GetPostAsync(post.Id);
+                    //  PostDto updateModel=await _postManager.GetPostAsync(post.Id);
 
-                    updateModel.PostTitle = post.PostTitle;
-                    updateModel.Content = post.Content;
-                    updateModel.Permerlink = post.Permerlink;
-                    updateModel.PostStatus = post.PostStatus;
-                    updateModel.CoverImageId = post.CoverImage != null ? (int?)post.CoverImage.Id : null;
+                    //updateModel.PostTitle = post.PostTitle;
+                    //updateModel.Content = post.Content;
+                    //updateModel.Permerlink = post.Permerlink;
+                    //updateModel.PostStatus = post.PostStatus;
+                    //updateModel.CoverImageId = post.CoverImage != null ? (int?)post.CoverImage.Id : null;
 
 
-                   _postManager.UpdatePost(updateModel);
+                    await _postManager.UpdatePostAsync((new AdminUpdatePostWrapper
+                    {
+                        PostId = post.Id,
+                        PostTitle = post.PostTitle,
+                        Content = post.Content,
+                        Permerlink = post.Permerlink,
+                        PostStatus = post.PostStatus,
+                        CoverImageId = post.CoverImage != null ? (int?)post.CoverImage.Id : null,
+                        UserId = 1
+                    }));
                 }
-             
+
                 return CreatedAtAction("GetPost", new { id = id }, post);
             }
             catch (Exception ex)
@@ -109,15 +117,18 @@ namespace Blog.Areas.Admin.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(int id, [FromBody]PostDto post)
         {
-            PostDto originalPost =await _postManager.GetPostAsync(id);
+            await _postManager.UpdatePostAsync(new AdminUpdatePostWrapper
+            {
+                PostId = post.Id,
+                PostTitle = post.PostTitle,
+                Content = post.Content,
+                Permerlink = post.Permerlink,
+                PostStatus = post.PostStatus,
+                CoverImageId = post.CoverImage != null ? (int?)post.CoverImage.Id : null,
+                UserId = 1
+            });
 
-            originalPost.PostTitle = post.PostTitle;
-            originalPost.Content = post.Content;
-            post.LastUpdatedDate = DateTime.Now;
-
-            _postManager.UpdatePost(originalPost);
-
-            return CreatedAtAction("GetPost", new { id }, originalPost);
+            return CreatedAtAction("GetPost", new { id });
         }
 
         // DELETE api/values/5
@@ -128,15 +139,39 @@ namespace Blog.Areas.Admin.Controllers
 
             _postManager.RemovePost(id);
 
-            var deleteObj = new {
+            var deleteObj = new
+            {
                 id,
-                postStatus="Deleted"
+                postStatus = "Deleted"
 
             };
 
             return Json(deleteObj);
         }
 
-       
+
+        [HttpGet("{postId}/cover")]
+        public async Task<IActionResult> PostCoverImage(int postId)
+        {
+            var post = await _postManager.GetPostAsync(postId);
+
+            if (post == null)
+                return BadRequest("Invalid Post Id");
+
+            if (post.CoverImage == null)
+                return BadRequest($"No Cover Image for {post.PostTitle}");
+
+
+            return Json(new
+            {
+                CoverImageId = post.CoverImage.Id,
+                post.CoverImage.FileName
+            });
+
+
+
+        }
+
+
     }
 }

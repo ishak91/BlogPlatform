@@ -1,4 +1,4 @@
-﻿import { Component, Output, Input, OnInit, EventEmitter } from '@angular/core';
+import { Component, Output, Input, OnInit, EventEmitter } from '@angular/core';
 
 import { Observable} from 'Rxjs/Observable'
 
@@ -43,7 +43,7 @@ export class MediaGalleryComponent implements OnInit {
     {
         var path = "";
         switch (file.fileType) {
-            case 'Image': path = this._appConfig.GetBaseApiUrl() + "/FileHandler/" + file.id + "/" + file.fileName; break;
+            case 'Image': path = this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName; break;
             case 'PDF': path = '/images/file_icons/pdf.png'; break;
             case 'Word': path = '/images/file_icons/word.png'; break;
             case 'Excel': path = '/images/file_icons/excel.png'; break;

@@ -9,10 +9,10 @@ namespace Blog.Core.Business
 {
     public interface IMediaFileManager
     {
-        void AddFile(MediaFileDto model);
-        void AddFile(IEnumerable<MediaFileDto> model);
-        Task AddFileAsync(MediaFileDto model);
-        Task AddFileAsync(IEnumerable<MediaFileDto> model);
+        int AddFile(MediaFileDto model);
+        IEnumerable<MediaFileDto> AddFile(List<MediaFileDto> model);
+        Task<int> AddFileAsync(MediaFileDto model);
+        Task<IEnumerable<MediaFileDto>> AddFileAsync(List<MediaFileDto> model);
         void RemoveFile(int mediaFileId);
         void RemoveFile(IEnumerable<MediaFileDto> model);
         void RemoveFile(IEnumerable<int> ids);

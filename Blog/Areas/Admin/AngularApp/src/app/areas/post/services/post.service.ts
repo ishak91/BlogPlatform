@@ -1,16 +1,24 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Post } from '../models';
 import { Observable } from 'rxjs/Observable';
 
+
+import { AppConfig } from '../../../app.config';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PostService {
-    url: string = "http://localhost:5000/api/Post";
-    constructor(private _http: Http)
-    { }
+  url: string = "/post";
+  constructor(private _http: Http, private _appConfig: AppConfig)
+  {
+    this.Init();
+  }
+
+  private Init() {
+    this.url = this._appConfig.GetBaseApiUrl() + this.url;
+  }
 
     CreateNewPost(post) {
         return this._http.post(this.url, post).map(res => res.json());

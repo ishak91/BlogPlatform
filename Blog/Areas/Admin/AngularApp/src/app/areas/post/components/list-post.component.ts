@@ -51,20 +51,20 @@ export class ListPostComponent implements OnInit {
 
     private GetAllPost() {
 
-      var posts = [{
-        postTitle: "Test1",
-        id: 10,
-        postStatus: "Public"
-      }, {
-        postTitle: "Test2",
-        id: 10,
-        postStatus: "Public"
-      }, {
-        postTitle: "Test3",
-        id: 10,
-        postStatus: "Public"
-      }];
+      //var posts = [{
+      //  postTitle: "Test1",
+      //  id: 10,
+      //  postStatus: "Public"
+      //}, {
+      //  postTitle: "Test2",
+      //  id: 10,
+      //  postStatus: "Public"
+      //}, {
+      //  postTitle: "Test3",
+      //  id: 10,
+      //  postStatus: "Public"
+      //}];
 
-      this.posts = Observable.of(posts);  //this._postService.GetAllPosts(); 
+      this.posts =this._postService.GetAllPosts(); 
     }
 }

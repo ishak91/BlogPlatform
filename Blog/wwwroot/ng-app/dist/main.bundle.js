@@ -110,10 +110,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var AppConfig = /** @class */ (function () {
     function AppConfig() {
-        this._baseApiUrl = "http://localhost:5000/api";
+        this._baseUrl = "http://localhost:5000";
+        this._baseApiUrl = "http://localhost:5000/api/admin";
     }
     AppConfig.prototype.GetBaseApiUrl = function () {
         return this._baseApiUrl;
+    };
+    AppConfig.prototype.GetBaseUrl = function () {
+        return this._baseUrl;
     };
     AppConfig = __decorate([
         core_1.Injectable()
@@ -324,7 +328,7 @@ var MediaGalleryComponent = /** @class */ (function () {
         var path = "";
         switch (file.fileType) {
             case 'Image':
-                path = this._appConfig.GetBaseApiUrl() + "/FileHandler/" + file.id + "/" + file.fileName;
+                path = this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
                 break;
             case 'PDF':
                 path = '/images/file_icons/pdf.png';
@@ -489,26 +493,14 @@ var MediaUploadComponent = /** @class */ (function () {
                 file.fileType = res.files[0].fileType;
                 switch (res.files[0].fileType) {
                     case 'Image':
-                        file.path = _this._appConfig.GetBaseApiUrl() + "/FileHandler/" + file.id + "/" + file.fileName;
+                        file.path = _this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
                         break;
-                    case 'PDF':
-                        file.path = '/images/file_icons/pdf.png';
-                        break;
-                    case 'Word':
-                        file.path = '/images/file_icons/word.png';
-                        break;
-                    case 'Excel':
-                        file.path = '/images/file_icons/excel.png';
-                        break;
-                    case 'PowerPoint':
-                        file.path = '/images/file_icons/powerpoint.png';
-                        break;
-                    case 'Audio':
-                        file.path = '/images/file_icons/audio.png';
-                        break;
-                    case 'Video':
-                        file.path = '/images/file_icons/video.png';
-                        break;
+                    //case 'PDF': file.path = '/images/file_icons/pdf.png'; break;
+                    //case 'Word': file.path = '/images/file_icons/word.png'; break;
+                    //case 'Excel': file.path = '/images/file_icons/excel.png'; break;
+                    //case 'PowerPoint': file.path = '/images/file_icons/powerpoint.png'; break;
+                    //case 'Audio': file.path = '/images/file_icons/audio.png'; break;
+                    //case 'Video': file.path = '/images/file_icons/video.png'; break;
                     default:
                         file.path = '/images/common_file.png';
                         break;
@@ -881,7 +873,7 @@ var CoverImageModalComponent = /** @class */ (function () {
         this.selectedFile = file;
     };
     CoverImageModalComponent.prototype.GetImagePath = function (file) {
-        return this._appConfig.GetBaseApiUrl() + "/FileHandler/" + file.id + "/" + file.fileName;
+        return this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
     };
     CoverImageModalComponent.prototype.SetCoverImage = function () {
         this.setcover.emit(this.selectedFile);
@@ -948,7 +940,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var router_1 = __webpack_require__("../../../router/esm5/router.js");
-var Observable_1 = __webpack_require__("../../../../rxjs/_esm5/Observable.js");
 __webpack_require__("../../../../rxjs/_esm5/add/observable/of.js");
 var services_1 = __webpack_require__("../../../../../src/app/areas/post/services/index.ts");
 var ListPostComponent = /** @class */ (function () {
@@ -977,20 +968,20 @@ var ListPostComponent = /** @class */ (function () {
         this.GetAllPost();
     };
     ListPostComponent.prototype.GetAllPost = function () {
-        var posts = [{
-                postTitle: "Test1",
-                id: 10,
-                postStatus: "Public"
-            }, {
-                postTitle: "Test2",
-                id: 10,
-                postStatus: "Public"
-            }, {
-                postTitle: "Test3",
-                id: 10,
-                postStatus: "Public"
-            }];
-        this.posts = Observable_1.Observable.of(posts); //this._postService.GetAllPosts(); 
+        //var posts = [{
+        //  postTitle: "Test1",
+        //  id: 10,
+        //  postStatus: "Public"
+        //}, {
+        //  postTitle: "Test2",
+        //  id: 10,
+        //  postStatus: "Public"
+        //}, {
+        //  postTitle: "Test3",
+        //  id: 10,
+        //  postStatus: "Public"
+        //}];
+        this.posts = this._postService.GetAllPosts();
     };
     ListPostComponent = __decorate([
         core_1.Component({
@@ -1122,7 +1113,7 @@ var NewPostComponent = /** @class */ (function () {
         return this.postForm.dirty;
     };
     NewPostComponent.prototype.GetCoverImage = function () {
-        return this._appConfig.GetBaseApiUrl() + "/FileHandler/" + this.coverImage.id + "/" + this.coverImage.fileName;
+        return this._appConfig.GetBaseUrl() + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
     };
     NewPostComponent.prototype.SetCover = function (file) {
         this.coverImage = file;
@@ -1309,7 +1300,7 @@ var ViewPostComponent = /** @class */ (function () {
         return this.postForm.dirty;
     };
     ViewPostComponent.prototype.GetCoverImage = function () {
-        return this._appConfig.GetBaseApiUrl() + "/FileHandler/" + this.coverImage.id + "/" + this.coverImage.fileName;
+        return this._appConfig.GetBaseUrl() + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
     };
     ViewPostComponent.prototype.SetCover = function (file) {
         this.coverImage = file;
@@ -1592,12 +1583,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("../../../core/esm5/core.js");
 var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var app_config_1 = __webpack_require__("../../../../../src/app/app.config.ts");
 __webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
 var PostService = /** @class */ (function () {
-    function PostService(_http) {
+    function PostService(_http, _appConfig) {
         this._http = _http;
-        this.url = "http://localhost:5000/api/Post";
+        this._appConfig = _appConfig;
+        this.url = "/post";
+        this.Init();
     }
+    PostService.prototype.Init = function () {
+        this.url = this._appConfig.GetBaseApiUrl() + this.url;
+    };
     PostService.prototype.CreateNewPost = function (post) {
         return this._http.post(this.url, post).map(function (res) { return res.json(); });
     };
@@ -1612,7 +1609,7 @@ var PostService = /** @class */ (function () {
     };
     PostService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [http_1.Http, app_config_1.AppConfig])
     ], PostService);
     return PostService;
 }());
@@ -1659,7 +1656,8 @@ var FileUploadService = /** @class */ (function () {
         this.appConfig = appConfig;
     }
     FileUploadService.prototype.UploadXHR = function (file, progress, complete, error) {
-        var url = this.appConfig.GetBaseApiUrl() + '/FileHandler';
+        //    let url = this.appConfig.GetBaseUrl() + '/api/file';
+        var url = "http://localhost:5000/api/file";
         var xhr = new XMLHttpRequest();
         if (file != null) {
             xhr.addEventListener('load', function (e) {

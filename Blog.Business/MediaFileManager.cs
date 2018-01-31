@@ -22,13 +22,15 @@ namespace Blog.Business
             _unitOfWork = unitOfWork;
             _mediaFileMapper = mediaFileMapper;
         }
-        public void AddFile(MediaFileDto model)
+        public int AddFile(MediaFileDto model)
         {
             try
             {
                 var entity = _mediaFileMapper.Map(model);
                 _unitOfWork.MediaFileRepository.Add(entity);
                 _unitOfWork.SaveChanges();
+
+                return entity.Id;
             }
             catch (Exception)
             {
@@ -37,21 +39,23 @@ namespace Blog.Business
             }
         }
 
-        public void AddFile(IEnumerable<MediaFileDto> model)
+        public IEnumerable<MediaFileDto> AddFile(List<MediaFileDto> model)
         {
             try
             {
                 MediaFile entity;
+                var entityList= new List<MediaFile>();
+
                 foreach (var file in model)
                 {
-                   entity= _mediaFileMapper.Map(file);
+                    entity = _mediaFileMapper.Map(file);
                     _unitOfWork.MediaFileRepository.Add(entity);
+                    entityList.Add(entity);
                 }
 
-                 _unitOfWork.SaveChanges();
+                _unitOfWork.SaveChanges();
 
-
-
+                return _mediaFileMapper.Map(entityList);
             }
             catch (Exception)
             {
@@ -60,12 +64,12 @@ namespace Blog.Business
             }
         }
 
-        public Task AddFileAsync(MediaFileDto model)
+        public Task<int> AddFileAsync(MediaFileDto model)
         {
             return Task.Run(() => AddFile(model));
         }
 
-        public Task AddFileAsync(IEnumerable<MediaFileDto> model)
+        public Task<IEnumerable<MediaFileDto>> AddFileAsync(List<MediaFileDto> model)
         {
             return Task.Run(() => AddFile(model));
         }

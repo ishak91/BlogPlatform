@@ -8,6 +8,7 @@ using Blog.Core.Repository;
 using Blog.Repository.UnitOfWork;
 using Blog.Core;
 using Blog.Common.DTO;
+using Blog.Common.Wrappers;
 
 namespace Blog.Business
 {
@@ -82,23 +83,30 @@ namespace Blog.Business
             });
         }
 
-        public int UpdatePost(PostDto post)
+        public int UpdatePost(AdminUpdatePostWrapper wrapper)
         {
-            post.LastUpdatedDate = DateTime.Now;
+            var entity = _unitOfWork.PostRepository.Get(wrapper.PostId);
+       
+            entity.PostTitle = wrapper.PostTitle;
+            entity.Permerlink = wrapper.Permerlink;
+            entity.PostStatus = wrapper.PostStatus;
+            entity.Content = wrapper.Content;
+            entity.CoverImageId = wrapper.CoverImageId;
+            entity.LastUpdatedDate = DateTime.Now;
+            entity.LastUpdatedBy = wrapper.UserId;
 
-            _unitOfWork.PostRepository.Update(_postMapper.Map(post));
+            _unitOfWork.PostRepository.Update(entity);
             return _unitOfWork.SaveChanges();
         }
 
-        public Task<int> UpdatePostAsync(PostDto post)
+        public Task<int> UpdatePostAsync(AdminUpdatePostWrapper wrapper)
         {
             return Task.Run(() =>
             {
-                return UpdatePost(post);
+                return UpdatePost(wrapper);
 
             });
         }
-
-
+        
     }
 }

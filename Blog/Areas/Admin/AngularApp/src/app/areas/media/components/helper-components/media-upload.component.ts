@@ -89,7 +89,7 @@ export class MediaUploadComponent {
                 isProgress: true,
                 progressValue: 0.0
             };
-
+          
             this.uploadFiles.push(file)
 
             this._fileUploadService.UploadXHR(files[i], progress => {
@@ -102,13 +102,13 @@ export class MediaUploadComponent {
                 file.fileName = res.files[0].fileName;
                 file.fileType = res.files[0].fileType;
                 switch (res.files[0].fileType) {
-                    case 'Image': file.path = this._appConfig.GetBaseApiUrl() + "/FileHandler/" + file.id + "/" + file.fileName; break;
-                    case 'PDF': file.path = '/images/file_icons/pdf.png'; break;
-                    case 'Word': file.path = '/images/file_icons/word.png'; break;
-                    case 'Excel': file.path = '/images/file_icons/excel.png'; break;
-                    case 'PowerPoint': file.path = '/images/file_icons/powerpoint.png'; break;
-                    case 'Audio': file.path = '/images/file_icons/audio.png'; break;
-                    case 'Video': file.path = '/images/file_icons/video.png'; break;
+                  case 'Image': file.path = this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName; break;
+                    //case 'PDF': file.path = '/images/file_icons/pdf.png'; break;
+                    //case 'Word': file.path = '/images/file_icons/word.png'; break;
+                    //case 'Excel': file.path = '/images/file_icons/excel.png'; break;
+                    //case 'PowerPoint': file.path = '/images/file_icons/powerpoint.png'; break;
+                    //case 'Audio': file.path = '/images/file_icons/audio.png'; break;
+                    //case 'Video': file.path = '/images/file_icons/video.png'; break;
                     default: file.path = '/images/common_file.png'; break;
                 }
 
