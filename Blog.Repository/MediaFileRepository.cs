@@ -29,7 +29,7 @@ namespace Blog.Repository
         public IEnumerable<MediaFile> Find(string fileName)
         {
 
-            return EntitySet.Where(f => f.FileName == fileName);
+            return _entitySet.Where(f => f.FileName == fileName);
 
         }
 

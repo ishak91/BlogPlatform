@@ -8,41 +8,49 @@ using System.Threading.Tasks;
 
 namespace Blog.Repository
 {
-    internal class Repository<Entity> : IRepository<Entity> where Entity:class
+    internal class Repository<Entity> : IRepository<Entity> where Entity : class
     {
         protected readonly BlogContext _dbContext;
-        protected DbSet<Entity> EntitySet;
+        private readonly DbSet<Entity> _entitySet;
 
         public Repository(BlogContext dbContext)
         {
             _dbContext = dbContext;
-         EntitySet=   _dbContext.Set<Entity>();
+            _entitySet = _dbContext.Set<Entity>();
+        }
+
+        public IQueryable<Entity> EntitySet
+        {
+            get
+            {
+                return _entitySet;
+            }
         }
 
         public virtual void Add(Entity entity)
         {
-            EntitySet.Add(entity);
+            _entitySet.Add(entity);
         }
 
         public virtual void Delete(int id)
         {
 
-            EntitySet.Remove(EntitySet.Find(id));
+            _entitySet.Remove(_entitySet.Find(id));
         }
 
         public virtual Entity Get(int id)
         {
-            return EntitySet.Find(id);
+            return _entitySet.Find(id);
         }
 
-        public IQueryable<Entity> ListAll()
+        public IQueryable<Entity> GetAll()
         {
-            return EntitySet.AsNoTracking();
+            return _entitySet.AsNoTracking();
         }
 
         public virtual void Update(Entity entity)
         {
-            EntitySet.Update(entity);
+            _entitySet.Update(entity);
         }
     }
 }

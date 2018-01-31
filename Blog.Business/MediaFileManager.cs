@@ -136,7 +136,7 @@ namespace Blog.Business
         {
             try
             {
-                return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.ListAll());
+                return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.GetAll());
             }
             catch (Exception)
             {

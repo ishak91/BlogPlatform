@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Blog.Data.Extensions;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
 namespace Blog
 {
@@ -23,9 +24,19 @@ namespace Blog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc(option=> {
+                option.Conventions.Add(new ApiExplorerGetsOnlyConvention());
+            });
 
             services.AddBlogContext(Configuration.GetConnectionString("Connection"));
+
+            services.AddSwaggerGen(option => {
+                option.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info {
+                    Title="Blog Platform API",
+                    Version="v1"
+
+                });
+            });
 
             //Dependency Injection
             services.AddBusinessDependencies();
@@ -48,11 +59,15 @@ namespace Blog
             }
 
             app.UseStaticFiles();
+            app.UseSwagger();
+            app.UseSwaggerUI(option => {
+                option.SwaggerEndpoint("/swagger/v1/swagger.json", "Blog Platform API");
+            });
 
             app.UseMvc(routes =>
             {
 
-
+              
                 routes.MapRoute(
                    name: "default",
                    template: "{controller=Home}/{action=Index}/{id?}");
@@ -70,6 +85,15 @@ namespace Blog
 
 
             });
+        }
+    }
+
+
+    public class ApiExplorerGetsOnlyConvention : IActionModelConvention
+    {
+        public void Apply(ActionModel action)
+        {
+            action.ApiExplorer.IsVisible = action.Controller.ControllerName.ToLower().Contains("api");
         }
     }
 }

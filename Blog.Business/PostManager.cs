@@ -15,6 +15,7 @@ namespace Blog.Business
     {
         private readonly UnitOfWork _unitOfWork;
         private readonly IMapper<Post, PostDto> _postMapper;
+        private readonly IMapper<MediaFile, MediaFileDto> _mediaMapper;
 
         public PostManager(UnitOfWork unitOfWork,IMapper<Post,PostDto> postMapper)
         {
@@ -44,7 +45,7 @@ namespace Blog.Business
 
         public IEnumerable<PostDto> GetAll()
         {
-            return  _postMapper.Map(_unitOfWork.PostRepository.ListAll());
+            return  _postMapper.Map(_unitOfWork.PostRepository.GetAll());
         }
 
         public Task<IEnumerable<PostDto>> GetAllAsync()
@@ -53,6 +54,11 @@ namespace Blog.Business
 
                 return GetAll();
             });
+        }
+
+        public Task<IEnumerable<MediaFileDto>> GetMediaAsync(int postId)
+        {
+            throw new NotImplementedException();
         }
 
         public PostDto GetPost(int id)

@@ -19,7 +19,7 @@ namespace Blog.Repository
 
         public IEnumerable<Lookup> Get(string type)
         {
-            return EntitySet.Where(l => l.Type.Equals(type));
+            return _entitySet.Where(l => l.Type.Equals(type));
         }
     }
 }
