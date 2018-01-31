@@ -70,7 +70,7 @@ namespace Blog.Areas.Admin.Controllers
             {
                 if (post.Id == 0)
                 {
-                post.Id= _postManager.CreateNewPost(new PostDto {
+                post.Id= await _postManager.CreateNewPostAsync(new PostDto {
                         PostTitle=post.PostTitle,
                         Content=post.Content,
                         Permerlink=post.Permerlink,
@@ -137,10 +137,6 @@ namespace Blog.Areas.Admin.Controllers
             return Json(deleteObj);
         }
 
-        [HttpGet("{id}/media")]
-        public IActionResult PostMedia(int id)
-        {
-            _mediaManager.
-        }
+       
     }
 }

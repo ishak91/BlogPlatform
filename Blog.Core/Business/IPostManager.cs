@@ -22,8 +22,5 @@ namespace Blog.Core.Business
         int RemovePost(int postId);
         Task<int> RemovePostAsync(int postId);
 
-        IEnumerable<MediaFileDto> GetMedia(int postId);
-        Task<IEnumerable<MediaFileDto>> GetMediaAsync(int postId);
-
     }
 }

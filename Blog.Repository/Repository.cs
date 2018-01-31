@@ -11,7 +11,7 @@ namespace Blog.Repository
     internal class Repository<Entity> : IRepository<Entity> where Entity : class
     {
         protected readonly BlogContext _dbContext;
-        private readonly DbSet<Entity> _entitySet;
+        protected readonly DbSet<Entity> _entitySet;
 
         public Repository(BlogContext dbContext)
         {

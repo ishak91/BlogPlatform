@@ -11,9 +11,16 @@ namespace Blog.Core.Business
     {
         void AddFile(MediaFileDto model);
         void AddFile(IEnumerable<MediaFileDto> model);
+        Task AddFileAsync(MediaFileDto model);
+        Task AddFileAsync(IEnumerable<MediaFileDto> model);
         void RemoveFile(int mediaFileId);
         void RemoveFile(IEnumerable<MediaFileDto> model);
         void RemoveFile(IEnumerable<int> ids);
+
+        Task RemoveFileAsync(int mediaFileId);
+        Task RemoveFileAsync(IEnumerable<MediaFileDto> model);
+        Task RemoveFileAsync(IEnumerable<int> ids);
+
         MediaFileDto Find(int id);
         Task<MediaFileDto> FindAsync(int id);
         IEnumerable<MediaFileDto> Find(string fileName);
