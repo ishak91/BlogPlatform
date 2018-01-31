@@ -28,7 +28,7 @@ export class HeaderLayoutComponent implements OnInit {
     private GetUserImage()
     {
         if (this.userInfo != undefined && this.userInfo.imageAvailable != undefined && this.userInfo.imageAvailable)
-            return this._appConfig.GetBaseApiUrl() + "/User/ProfileImage?email=" + this.userInfo.email;
+            return this._appConfig.GetBaseApiUrl + "/User/ProfileImage?email=" + this.userInfo.email;
         else
             return 'assets/images/default_profile.png';
     }

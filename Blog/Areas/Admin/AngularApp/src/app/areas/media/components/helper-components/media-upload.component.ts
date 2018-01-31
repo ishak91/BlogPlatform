@@ -102,7 +102,7 @@ export class MediaUploadComponent {
                 file.fileName = res.files[0].fileName;
                 file.fileType = res.files[0].fileType;
                 switch (res.files[0].fileType) {
-                  case 'Image': file.path = this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName; break;
+                  case 'Image': file.path = this._appConfig.GetBaseUrl + "/api/file/" + file.id + "/" + file.fileName; break;
                     //case 'PDF': file.path = '/images/file_icons/pdf.png'; break;
                     //case 'Word': file.path = '/images/file_icons/word.png'; break;
                     //case 'Excel': file.path = '/images/file_icons/excel.png'; break;

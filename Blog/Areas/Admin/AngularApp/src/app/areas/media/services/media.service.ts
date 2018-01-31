@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Observable } from 'Rxjs/Observable'
@@ -16,7 +16,7 @@ export class MediaService {
     }
 
     private Init() {
-        this.url = this._appConfig.GetBaseApiUrl() + this.url;
+        this.url = this._appConfig.GetBaseApiUrl + this.url;
     }
 
     GetAll(): Observable<Array<File>> {

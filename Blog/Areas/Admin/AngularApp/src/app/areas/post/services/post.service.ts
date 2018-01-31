@@ -17,7 +17,7 @@ export class PostService {
   }
 
   private Init() {
-    this.url = this._appConfig.GetBaseApiUrl() + this.url;
+    this.url = this._appConfig.GetBaseApiUrl + this.url;
   }
 
     CreateNewPost(post) {

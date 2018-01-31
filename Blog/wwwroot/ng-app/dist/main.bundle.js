@@ -113,12 +113,20 @@ var AppConfig = /** @class */ (function () {
         this._baseUrl = "http://localhost:5000";
         this._baseApiUrl = "http://localhost:5000/api/admin";
     }
-    AppConfig.prototype.GetBaseApiUrl = function () {
-        return this._baseApiUrl;
-    };
-    AppConfig.prototype.GetBaseUrl = function () {
-        return this._baseUrl;
-    };
+    Object.defineProperty(AppConfig.prototype, "GetBaseApiUrl", {
+        get: function () {
+            return this._baseApiUrl;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(AppConfig.prototype, "GetBaseUrl", {
+        get: function () {
+            return this._baseUrl;
+        },
+        enumerable: true,
+        configurable: true
+    });
     AppConfig = __decorate([
         core_1.Injectable()
     ], AppConfig);
@@ -328,7 +336,7 @@ var MediaGalleryComponent = /** @class */ (function () {
         var path = "";
         switch (file.fileType) {
             case 'Image':
-                path = this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
+                path = this._appConfig.GetBaseUrl + "/api/file/" + file.id + "/" + file.fileName;
                 break;
             case 'PDF':
                 path = '/images/file_icons/pdf.png';
@@ -493,7 +501,7 @@ var MediaUploadComponent = /** @class */ (function () {
                 file.fileType = res.files[0].fileType;
                 switch (res.files[0].fileType) {
                     case 'Image':
-                        file.path = _this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
+                        file.path = _this._appConfig.GetBaseUrl + "/api/file/" + file.id + "/" + file.fileName;
                         break;
                     //case 'PDF': file.path = '/images/file_icons/pdf.png'; break;
                     //case 'Word': file.path = '/images/file_icons/word.png'; break;
@@ -791,7 +799,7 @@ var MediaService = /** @class */ (function () {
         this.Init();
     }
     MediaService.prototype.Init = function () {
-        this.url = this._appConfig.GetBaseApiUrl() + this.url;
+        this.url = this._appConfig.GetBaseApiUrl + this.url;
     };
     MediaService.prototype.GetAll = function () {
         return this._http.get(this.url).map(function (res) { return res.json(); });
@@ -873,7 +881,7 @@ var CoverImageModalComponent = /** @class */ (function () {
         this.selectedFile = file;
     };
     CoverImageModalComponent.prototype.GetImagePath = function (file) {
-        return this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
+        return this._appConfig.GetBaseUrl + "/api/file/" + file.id + "/" + file.fileName;
     };
     CoverImageModalComponent.prototype.SetCoverImage = function () {
         this.setcover.emit(this.selectedFile);
@@ -1113,7 +1121,7 @@ var NewPostComponent = /** @class */ (function () {
         return this.postForm.dirty;
     };
     NewPostComponent.prototype.GetCoverImage = function () {
-        return this._appConfig.GetBaseUrl() + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
+        return this._appConfig.GetBaseUrl + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
     };
     NewPostComponent.prototype.SetCover = function (file) {
         this.coverImage = file;
@@ -1300,7 +1308,7 @@ var ViewPostComponent = /** @class */ (function () {
         return this.postForm.dirty;
     };
     ViewPostComponent.prototype.GetCoverImage = function () {
-        return this._appConfig.GetBaseUrl() + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
+        return this._appConfig.GetBaseUrl + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
     };
     ViewPostComponent.prototype.SetCover = function (file) {
         this.coverImage = file;
@@ -1593,7 +1601,7 @@ var PostService = /** @class */ (function () {
         this.Init();
     }
     PostService.prototype.Init = function () {
-        this.url = this._appConfig.GetBaseApiUrl() + this.url;
+        this.url = this._appConfig.GetBaseApiUrl + this.url;
     };
     PostService.prototype.CreateNewPost = function (post) {
         return this._http.post(this.url, post).map(function (res) { return res.json(); });
@@ -1656,8 +1664,8 @@ var FileUploadService = /** @class */ (function () {
         this.appConfig = appConfig;
     }
     FileUploadService.prototype.UploadXHR = function (file, progress, complete, error) {
-        //    let url = this.appConfig.GetBaseUrl() + '/api/file';
-        var url = "http://localhost:5000/api/file";
+        var url = this.appConfig.GetBaseUrl + '/api/file';
+        //    let url = "http://localhost:5000/api/file";
         var xhr = new XMLHttpRequest();
         if (file != null) {
             xhr.addEventListener('load', function (e) {
@@ -2101,7 +2109,7 @@ var HeaderLayoutComponent = /** @class */ (function () {
     };
     HeaderLayoutComponent.prototype.GetUserImage = function () {
         if (this.userInfo != undefined && this.userInfo.imageAvailable != undefined && this.userInfo.imageAvailable)
-            return this._appConfig.GetBaseApiUrl() + "/User/ProfileImage?email=" + this.userInfo.email;
+            return this._appConfig.GetBaseApiUrl + "/User/ProfileImage?email=" + this.userInfo.email;
         else
             return 'assets/images/default_profile.png';
     };

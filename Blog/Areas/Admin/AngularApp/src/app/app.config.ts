@@ -5,14 +5,16 @@ export class AppConfig
 {
     private _baseUrl = "http://localhost:5000"
     private _baseApiUrl = "http://localhost:5000/api/admin";
-  
-    GetBaseApiUrl()
+
+    get GetBaseApiUrl(): string
     {
         return this._baseApiUrl;
     }
 
-    GetBaseUrl() {
+    get GetBaseUrl(): string {
       return this._baseUrl;
     }
+
+    
 
 }

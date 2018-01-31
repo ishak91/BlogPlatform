@@ -52,7 +52,7 @@ export class CoverImageModalComponent implements OnInit {
     }
 
     private GetImagePath(file: File) {
-      return this._appConfig.GetBaseUrl() + "/api/file/" + file.id + "/" + file.fileName;
+      return this._appConfig.GetBaseUrl + "/api/file/" + file.id + "/" + file.fileName;
     }
 
     private SetCoverImage()

@@ -12,8 +12,8 @@ export class FileUploadService
 
     UploadXHR(file: File, progress?: Function, complete?: Function, error?: Function)
     {
-  //    let url = this.appConfig.GetBaseUrl() + '/api/file';
-      let url = "http://localhost:5000/api/file";
+      let url = this.appConfig.GetBaseUrl + '/api/file';
+  //    let url = "http://localhost:5000/api/file";
 
         let xhr = new XMLHttpRequest();
 

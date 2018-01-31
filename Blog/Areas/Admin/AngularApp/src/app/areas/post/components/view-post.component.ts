@@ -159,7 +159,7 @@ export class ViewPostComponent {
     }
 
     private GetCoverImage() {
-      return this._appConfig.GetBaseUrl() + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
+      return this._appConfig.GetBaseUrl + "/api/file/" + this.coverImage.id + "/" + this.coverImage.fileName;
     }
 
     private SetCover(file: File) {
