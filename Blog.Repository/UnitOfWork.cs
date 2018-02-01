@@ -18,6 +18,7 @@ namespace Blog.Repository.UnitOfWork
         private IMediaFileRepository _mediaFileRepository;
         private IPostRepository _postRepository;
         private ILookupRepository _lookupRepository;
+        private ICategoryRepository _categoryRepository;
 
         public UnitOfWork(BlogContext blogContext)
         {
@@ -58,6 +59,18 @@ namespace Blog.Repository.UnitOfWork
                 return _lookupRepository;
             }
         }
+
+        public ICategoryRepository CategoryRepository
+        {
+            get
+            {
+                if (_categoryRepository == null)
+                    _categoryRepository = new CategoryRepository(_blogContext);
+
+                return _categoryRepository;
+            }
+        }
+
 
         public int SaveChanges()
         {

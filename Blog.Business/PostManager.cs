@@ -22,7 +22,7 @@ namespace Blog.Business
             _unitOfWork = unitOfWork;
             _postMapper = postMapper;
         }
-        public int CreateNewPost(PostDto post)
+        public int Create(PostDto post)
         {
             post.CreatedBy = 1;
             post.LastUpdatedBy = 1;
@@ -37,10 +37,10 @@ namespace Blog.Business
             return entity.Id;
         }
 
-        public Task<int> CreateNewPostAsync(PostDto post)
+        public Task<int> CreateAsync(PostDto post)
         {
             return Task.Run(() => {
-               return CreateNewPost(post);
+               return Create(post);
             });
         }
 
@@ -57,33 +57,33 @@ namespace Blog.Business
             });
         }
 
-        public PostDto GetPost(int id)
+        public PostDto Get(params object[] keys)
         {
-          return _postMapper.Map(_unitOfWork.PostRepository.Get(id));
+          return _postMapper.Map(_unitOfWork.PostRepository.Get(keys));
         }
 
-        public Task<PostDto> GetPostAsync(int id)
+        public Task<PostDto> GetAsync(params object[] keys)
         {
            return  Task.Run(() => {
-                return GetPost(id);
+                return Get(keys);
             });
         }
 
-        public int RemovePost(int postId)
+        public int Remove(int id)
         {
-            _unitOfWork.PostRepository.Delete(postId);
+            _unitOfWork.PostRepository.Delete(id);
            return _unitOfWork.SaveChanges();
         }
 
-        public Task<int> RemovePostAsync(int postId)
+        public Task<int> RemoveAsync(int id)
         {
             return Task.Run(() =>
             {
-                return RemovePost(postId);
+                return Remove(id);
             });
         }
 
-        public int UpdatePost(AdminUpdatePostWrapper wrapper)
+        public int Update(AdminUpdatePostWrapper wrapper)
         {
             var entity = _unitOfWork.PostRepository.Get(wrapper.PostId);
        
@@ -99,11 +99,11 @@ namespace Blog.Business
             return _unitOfWork.SaveChanges();
         }
 
-        public Task<int> UpdatePostAsync(AdminUpdatePostWrapper wrapper)
+        public Task<int> UpdateAsync(AdminUpdatePostWrapper wrapper)
         {
             return Task.Run(() =>
             {
-                return UpdatePost(wrapper);
+                return Update(wrapper);
 
             });
         }

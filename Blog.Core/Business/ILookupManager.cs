@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Business
 {
-    public interface ILookupManager
+    public interface ILookupManager 
     {
         IEnumerable<Lookup> GetAll(string type);
     }

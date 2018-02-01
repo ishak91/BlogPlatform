@@ -3,13 +3,17 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Repository
 {
-    public interface IRepository<Entity> where Entity : class
+    public interface IRepository
+    { }
+
+    public interface IRepository<Entity> :IRepository where Entity : class
     {
         IQueryable<Entity> EntitySet { get;}
-        Entity Get(int id);
+        Entity Get(params object[] keys);
         void Add(Entity entity);
         void Update(Entity entity);
-        void Delete(int id);
-       IQueryable<Entity> GetAll();
+        void Delete(params object[] keys);
+        void Delete(Entity entity);
+        IQueryable<Entity> GetAll();
     }
 }

@@ -8,20 +8,14 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Business
 {
-    public interface IPostManager
+    public interface IPostManager : IBaseManager<PostDto>
     {
-        int CreateNewPost(PostDto entity);
-        Task<int> CreateNewPostAsync(PostDto entity);
-        IEnumerable<PostDto> GetAll();
-        Task<IEnumerable<PostDto>> GetAllAsync();
-        PostDto GetPost(int id);
-        Task<PostDto> GetPostAsync(int id);
 
-        int UpdatePost(AdminUpdatePostWrapper wrapper);
-
-        Task<int> UpdatePostAsync(AdminUpdatePostWrapper wrapper);
-        int RemovePost(int postId);
-        Task<int> RemovePostAsync(int postId);
-
+        int Create(PostDto dto);
+        Task<int> CreateAsync(PostDto dto);
+        int Update(AdminUpdatePostWrapper wrapper);
+        Task<int> UpdateAsync(AdminUpdatePostWrapper wrapper);
+        int Remove(int id);
+        Task<int> RemoveAsync(int id);
     }
 }

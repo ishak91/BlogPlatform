@@ -44,7 +44,7 @@ namespace Blog.Areas.Admin.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
-            var post = await _postManager.GetPostAsync(id);
+            var post = await _postManager.GetAsync(id);
 
             var postModel = new
             {
@@ -68,7 +68,7 @@ namespace Blog.Areas.Admin.Controllers
             {
                 if (post.Id == 0)
                 {
-                    post.Id = await _postManager.CreateNewPostAsync(new PostDto
+                    post.Id = await _postManager.CreateAsync(new PostDto
                     {
                         PostTitle = post.PostTitle,
                         Content = post.Content,
@@ -88,7 +88,7 @@ namespace Blog.Areas.Admin.Controllers
                     //updateModel.CoverImageId = post.CoverImage != null ? (int?)post.CoverImage.Id : null;
 
 
-                    await _postManager.UpdatePostAsync((new AdminUpdatePostWrapper
+                    await _postManager.UpdateAsync((new AdminUpdatePostWrapper
                     {
                         PostId = post.Id,
                         PostTitle = post.PostTitle,
@@ -117,7 +117,7 @@ namespace Blog.Areas.Admin.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePost(int id, [FromBody]PostDto post)
         {
-            await _postManager.UpdatePostAsync(new AdminUpdatePostWrapper
+            await _postManager.UpdateAsync(new AdminUpdatePostWrapper
             {
                 PostId = post.Id,
                 PostTitle = post.PostTitle,
@@ -135,9 +135,9 @@ namespace Blog.Areas.Admin.Controllers
         [HttpDelete("{id}")]
         public IActionResult RemovePost(int id)
         {
-            PostDto post = _postManager.GetPost(id);
+            PostDto post = _postManager.Get(id);
 
-            _postManager.RemovePost(id);
+            _postManager.Remove(id);
 
             var deleteObj = new
             {
@@ -153,7 +153,7 @@ namespace Blog.Areas.Admin.Controllers
         [HttpGet("{postId}/cover")]
         public async Task<IActionResult> PostCoverImage(int postId)
         {
-            var post = await _postManager.GetPostAsync(postId);
+            var post = await _postManager.GetAsync(postId);
 
             if (post == null)
                 return BadRequest("Invalid Post Id");

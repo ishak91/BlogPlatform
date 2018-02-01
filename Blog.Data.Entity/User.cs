@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Data.Entity
 {
-    public class User
+    public class User : BaseEntity
     {
     }
 }

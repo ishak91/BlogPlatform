@@ -120,13 +120,13 @@ namespace Blog.Controllers
 
                 if (id != 0)
                 {
-                    MediaFileDto file = await _fileManager.FindAsync(id);
+                    MediaFileDto file = await _fileManager.GetAsync(id);
                     var filePath = $@"{_hostingEnv.WebRootPath}\{file.Path}";
                     return new PhysicalFileResult(filePath, file.ContentType);
                 }
                 else
                 {
-                    IEnumerable<MediaFileDto> file = await _fileManager.FindAsync(fileName);
+                    IEnumerable<MediaFileDto> file = await _fileManager.GetAsync(fileName);
                     var filePath = $@"{_hostingEnv.WebRootPath}\{file.FirstOrDefault().Path}";
                     return new PhysicalFileResult(filePath, file.FirstOrDefault().ContentType);
                 }

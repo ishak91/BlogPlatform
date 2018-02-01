@@ -19,11 +19,15 @@ namespace Blog.Data.DB
             //optionsBuilder.UseSqlServer("Server=AHAMEDI\\AHAMEDI;Database=BlogApp_int;User Id=BLOG_USER;Password=pass#word1;MultipleActiveResultSets=true");
         }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+           
+        }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<MediaFile> MediaFiles { get; set; }
-        
+        public DbSet<Category> Category { get; set; }
+
         public DbSet<Lookup> Lookup { get; set; }
     }
 }

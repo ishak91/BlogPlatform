@@ -19,7 +19,7 @@ namespace Blog.Extensions.DependencyInjection
 
             service.AddTransient<IPostManager, PostManager>();
             service.AddTransient<IMediaFileManager,MediaFileManager>();
-            service.AddTransient<ILookupManager, LookupManager>();
+         //   service.AddTransient<ILookupManager, LookupManager>();
 
 
             //Mappers

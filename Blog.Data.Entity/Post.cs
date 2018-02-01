@@ -8,9 +8,9 @@ using Newtonsoft.Json.Converters;
 
 namespace Blog.Data.Entity
 {
-    public class Post
+    public class Post : BaseEntity<int>
     {
-        public int Id { get; set; }
+
         public string PostTitle { get; set; }
         public string Permerlink { get; set; }
         public string Content { get; set; }
@@ -19,12 +19,6 @@ namespace Blog.Data.Entity
         public PostStatus PostStatus { get; set; }
 
         public int? CoverImageId { get; set; }
-    
-
-        public DateTime? CreatedDate { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? LastUpdatedDate { get; set; }
-        public int? LastUpdatedBy { get; set; }
 
         public virtual MediaFile CoverImage { get; set; }
 

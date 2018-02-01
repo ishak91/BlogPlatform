@@ -100,7 +100,7 @@ namespace Blog.Business
             }
         }
 
-        public IEnumerable<MediaFileDto> Find(string fileName)
+        public IEnumerable<MediaFileDto> Get(string fileName)
         {
             try
             {
@@ -113,16 +113,16 @@ namespace Blog.Business
             }
         }
 
-        public MediaFileDto Find(int id)
+        public MediaFileDto Get(params object[] keys)
         {
-            return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.Get(id));
+            return _mediaFileMapper.Map(_unitOfWork.MediaFileRepository.Get(keys));
         }
 
-        public Task<IEnumerable<MediaFileDto>> FindAsync(string fileName)
+        public Task<IEnumerable<MediaFileDto>> GetAsync(string fileName)
         {
             try
             {
-               return Task.Run(() => Find(fileName));
+               return Task.Run(() => Get(fileName));
             }
             catch (Exception)
             {
@@ -131,11 +131,11 @@ namespace Blog.Business
             }
         }
 
-        public Task<MediaFileDto> FindAsync(int id)
+        public Task<MediaFileDto> GetAsync(params object[] keys)
         {
             try
             {
-                return Task.Run(() => Find(id));
+                return Task.Run(() => Get(keys));
             }
             catch (Exception)
             {

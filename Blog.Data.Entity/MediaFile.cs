@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace Blog.Data.Entity
 {
-    public class MediaFile
+    public class MediaFile : BaseEntity<int>
     {
-        public int Id { get; set; }
+      
         public string FileName { get; set; }
         public long Size { get; set; }
         public string Path { get; set; }
         public string FileType { get; set; }
         public string ContentType { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+     
         public virtual IEnumerable<Post> Posts { get; set; }
 
-    }
+    }   
 }

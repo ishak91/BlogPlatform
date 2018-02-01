@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Core.Business
 {
-    public interface IMediaFileManager
+    public interface IMediaFileManager : IBaseManager<MediaFileDto>
     {
         int AddFile(MediaFileDto model);
         IEnumerable<MediaFileDto> AddFile(List<MediaFileDto> model);
@@ -21,12 +21,12 @@ namespace Blog.Core.Business
         Task RemoveFileAsync(IEnumerable<MediaFileDto> model);
         Task RemoveFileAsync(IEnumerable<int> ids);
 
-        MediaFileDto Find(int id);
-        Task<MediaFileDto> FindAsync(int id);
-        IEnumerable<MediaFileDto> Find(string fileName);
-        Task<IEnumerable<MediaFileDto>> FindAsync(string fileName);
-        IEnumerable<MediaFileDto> GetAll();
-        Task<IEnumerable<MediaFileDto>> GetAllAsync();
+        //MediaFileDto Get(int id);
+        //Task<MediaFileDto> GetAsync(int id);
+        IEnumerable<MediaFileDto> Get(string fileName);
+        Task<IEnumerable<MediaFileDto>> GetAsync(string fileName);
+        //IEnumerable<MediaFileDto> GetAll();
+        //Task<IEnumerable<MediaFileDto>> GetAllAsync();
         IEnumerable<MediaFileDto> FilterByFileType(string fileType);
         Task<IEnumerable<MediaFileDto>> FilterByFileTypeAsync(string fileType);
      

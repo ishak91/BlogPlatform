@@ -46,14 +46,14 @@ namespace Blog.Areas.Admin.Controllers
             var files = new List<FileViewModel>();
             if (filterType.ToLowerInvariant().Contains("id") && int.Parse(filterValue) > 0)
             {
-                var file = await _fileManager.FindAsync(int.Parse(filterValue));
+                var file = await _fileManager.GetAsync(int.Parse(filterValue));
                 files.Add(new FileViewModel { FileName = file.FileName, Id = file.Id });
 
                 return Json(files.FirstOrDefault());
             }
             else if (filterType.ToLowerInvariant().Contains("filename"))
             {
-                IEnumerable<MediaFileDto> mediaFiles = await _fileManager.FindAsync(filterValue);
+                IEnumerable<MediaFileDto> mediaFiles = await _fileManager.GetAsync(filterValue);
                 files = mediaFiles.Select(f => new FileViewModel { FileName = f.FileName, Id = f.Id }).ToList();
             }
             else if (filterType.ToLowerInvariant().Contains("filetype"))

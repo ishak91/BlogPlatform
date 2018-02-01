@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Blog.Common.DTO
 {
-    public class PostDto
+    public class PostDto : BaseDto
     {
         public int Id { get; set; }
         public string PostTitle { get; set; }
@@ -15,12 +15,7 @@ namespace Blog.Common.DTO
 
         public int? CoverImageId { get; set; }
 
-
-        public DateTime? CreatedDate { get; set; }
-        public int? CreatedBy { get; set; }
-        public DateTime? LastUpdatedDate { get; set; }
-        public int? LastUpdatedBy { get; set; }
-
+       
         public MediaFileDto CoverImage { get; set; }
 
     }
