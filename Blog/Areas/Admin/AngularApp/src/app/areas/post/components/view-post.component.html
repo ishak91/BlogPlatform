@@ -56,7 +56,7 @@
         </div>
         <hr />
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-sm-12 col-md-4">
 
             <div ngbDropdown class="btn-group" dropdown>
               <button id="split-button" type="button" class="btn btn-outline-primary" (click)="Save()" [disabled]="!postForm.valid">Save</button>
@@ -73,7 +73,7 @@
             <!--   <button class="btn btn-outline-primary btn-block" (click)="Save()" [disabled]="!postForm.valid">Save</button>-->
           </div>
 
-          <div class="col-sm-6">
+          <div class="col-sm-12 col-md-5">
             <button class="btn btn-primary btn-block" (click)="Publish()" *ngIf="postStauts!='Publish'" [disabled]="!postForm.valid">Publish</button>
           </div>
         </div>

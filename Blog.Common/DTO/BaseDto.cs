@@ -11,4 +11,9 @@ namespace Blog.Common.DTO
         public DateTime? LastUpdatedDate { get; set; }
         public int? LastUpdatedBy { get; set; }
     }
+
+    public abstract class BaseDto<Tkey> where Tkey : struct
+    {
+        public Tkey Id { get; set; }
+    }
 }

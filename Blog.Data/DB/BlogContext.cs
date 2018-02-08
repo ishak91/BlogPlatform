@@ -16,7 +16,7 @@ namespace Blog.Data.DB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Server=AHAMEDI\\AHAMEDI;Database=BlogApp_int;User Id=BLOG_USER;Password=pass#word1;MultipleActiveResultSets=true");
+            //optionsBuilder.UseSqlServer("Data Source=10.3.240.32;Initial Catalog=ik_blog_test;Persist Security Info=True;User ID=ik;Password=pass#word1");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
