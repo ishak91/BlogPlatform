@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Blog.Common.ViewModel
@@ -10,6 +11,24 @@ namespace Blog.Common.ViewModel
         public string Name { get; set; }
         public string UrlSlug { get; set; }
 
-        public int PatentCategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
+    }
+
+    public class NewCategoryViewModel
+    {
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string UrlSlug { get; set; }
+
+        public int? ParentCategoryId { get; set; }
+    }
+
+    public class UpdateCategoryViewModel
+    {
+        public string Name { get; set; }
+        public string UrlSlug { get; set; }
+
+        public int? ParentCategoryId { get; set; }
     }
 }

@@ -19,13 +19,16 @@ namespace Blog.Extensions.DependencyInjection
 
             service.AddTransient<IPostManager, PostManager>();
             service.AddTransient<IMediaFileManager,MediaFileManager>();
-         //   service.AddTransient<ILookupManager, LookupManager>();
+            service.AddTransient<ICategoryManager, CategoryManager>();
+            //   service.AddTransient<ILookupManager, LookupManager>();
 
 
             //Mappers
             service.AddTransient<IMapper<Post, PostDto>,Business.Mappers.PostMapper>();
             service.AddTransient<IMapper<MediaFile, MediaFileDto>, Business.Mappers.MediaFileMapper>();
-          
+            service.AddTransient<IMapper<Category, CategoryDto>, Business.Mappers.CategoryMapper>();
+
+
 
             return service;
         }

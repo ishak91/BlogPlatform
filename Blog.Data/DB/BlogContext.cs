@@ -21,7 +21,8 @@ namespace Blog.Data.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+            modelBuilder.Entity<Category>().HasOne(c => c.ParentCategory);
+            modelBuilder.Entity<Category>().Property(c => c.ParentCategoryId).IsRequired(false);
         }
 
         public DbSet<Post> Posts { get; set; }

@@ -114,7 +114,7 @@ namespace Blog.Business
 
                 entity.Name = wrapper.Name;
                 entity.UrlSlug = wrapper.UrlSlug;
-                entity.PatentCategoryId = wrapper.ParentCategoryId;
+                entity.ParentCategoryId = wrapper.ParentCategoryId;
 
                 _unitOfWork.CategoryRepository.Update(entity);
               return   _unitOfWork.SaveChanges();

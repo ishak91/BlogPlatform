@@ -10,7 +10,7 @@ namespace Blog.Data.Entity
         public string Name { get; set; }
         public string UrlSlug { get; set; }
 
-        public int PatentCategoryId { get; set; }
+        public int? ParentCategoryId { get; set; }
         public Category ParentCategory { get; set; }
     }
 }

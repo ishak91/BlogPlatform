@@ -12,7 +12,7 @@ namespace Blog.Common.DTO
         public int? LastUpdatedBy { get; set; }
     }
 
-    public abstract class BaseDto<Tkey> where Tkey : struct
+    public abstract class BaseDto<Tkey> : BaseDto where Tkey : struct
     {
         public Tkey Id { get; set; }
     }
