@@ -13,7 +13,5 @@ namespace Blog
     }
 
     public enum LookupType
-    {
-        Privilage=1
-    }
+    {   Privilage=1 }
 }
